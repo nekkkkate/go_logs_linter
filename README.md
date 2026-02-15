@@ -34,21 +34,46 @@
     go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
     ```
 
-2) Очень важно проверить, что кастомный линтер собирается с той же версией, что и golangci-lint - в противном случае исправить это (так как плагин просто не заработает)
+   2) Очень важно проверить, что кастомный линтер собирается с той же версией, что и golangci-lint - в противном случае исправить это (так как плагин просто не заработает)
 
-   Версия golangci-lint:
+      Как я решала проблему:
 
-    ```bash
-    golangci-lint --version
-    ```
+      Установка Go 1.25.7:
+   
+      ```bash
+      wget https://go.dev/dl/go1.25.7.linux-amd64.tar.gz
+      ```
 
-   Версия Go:
+      Удаление старой версии и установка новой:
+   
+      ```bash  
+      sudo rm -rf /usr/local/go
+      sudo tar -C /usr/local -xzf go1.25.7.linux-amd64.tar.gz
+      ```
+
+      Проверка версии:
+   
+      ```bash
+      go version  # должно показать go1.25.7
+      ```   
+
+   Устанавливаем необходимую версию tools
 
    ```bash
-    go version
-    ```
+   go get golang.org/x/tools@v0.31.0
+   ```
+
+   Обновление зависимостей
    
-   Если версии не совпадают, нужно пересобрать линтер с той же версией Go, что и golangci-lint
+   ```bash
+   go mod tidy
+   ```
+
+   Проверка измененной версии
+
+   ```bash
+   go list -m golang.org/x/tools  # Должно показать: golang.org/x/tools v0.31.0
+   ```
    
 ### Основная инструкция
 
@@ -64,7 +89,7 @@
     golangci-lint run --config .golangci.yml path/to/file
     ```
    Пример запуска линтера:
-   ![img.png](img.png)
+   ![img.png](images/img.png)
 
 # Полезные материалы
 
