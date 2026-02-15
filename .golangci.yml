@@ -1,0 +1,22 @@
+linters-settings:
+  custom:
+    loglinter:
+      path: ./loglinter.so
+      description: "Проверяет лог-записи на соответствие правилам"
+      original-url: github.com/nekkkkate/go_logs_linter
+
+linters:
+  enable:
+    - loglinter
+  disable-all: true
+
+run:
+  timeout: 5m
+  tests: true
+
+issues:
+  exclude-use-default: false
+
+output:
+  formats:
+    - format: colored-line-number
